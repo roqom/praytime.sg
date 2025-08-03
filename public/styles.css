@@ -1,0 +1,145 @@
+/* Prayer Times App Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 2rem;
+  color: #333;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.header {
+  background: linear-gradient(135deg, #0070c9 0%, #0056b3 100%);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  opacity: 0.9;
+  font-size: 1.1rem;
+}
+
+.content {
+  padding: 2rem;
+}
+
+.prayer-times {
+  list-style: none;
+  padding: 0;
+}
+
+.prayer-time {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.prayer-time:last-child {
+  border-bottom: none;
+}
+
+.prayer-time:hover {
+  background: #f8f9fa;
+  padding-left: 1rem;
+  border-radius: 8px;
+}
+
+.prayer-name {
+  font-weight: 600;
+  color: #0070c9;
+  font-size: 1.1rem;
+}
+
+.prayer-time-value {
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.date-display {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  color: #666;
+  font-weight: 500;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.error {
+  color: #d32f2f;
+  background: #ffebee;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 4px solid #d32f2f;
+  margin: 1rem 0;
+}
+
+.error strong {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .content {
+    padding: 1.5rem;
+  }
+  
+  .prayer-time {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+/* Animation for loading */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.loading {
+  animation: pulse 1.5s infinite;
+} 

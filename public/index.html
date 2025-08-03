@@ -1,21 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prayer Times - Singapore</title>
-  <style>
-    body { font-family: sans-serif; padding: 2rem; background: #f7f7f7; }
-    h1 { color: #0070c9; }
-    ul { list-style: none; padding: 0; }
-    li { margin-bottom: 0.8rem; }
-    .error { color: #d32f2f; background: #ffebee; padding: 1rem; border-radius: 4px; }
-  </style>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <h1>Singapore Prayer Times</h1>
-  <ul id="times">Loading...</ul>
+  <div class="container">
+    <div class="header">
+      <h1>Singapore Prayer Times</h1>
+      <p>Daily prayer times for Singapore</p>
+    </div>
+    
+    <div class="content">
+      <div id="date-display" class="date-display">
+        Loading today's date...
+      </div>
+      
+      <ul id="times" class="prayer-times">
+        <li class="loading">Loading prayer times...</li>
+      </ul>
+    </div>
+  </div>
 
 <script>
+  // Display today's date
+  const today = new Date();
+  const options = { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  };
+  document.getElementById('date-display').textContent = today.toLocaleDateString('en-US', options);
+
   fetch('/api/prayer-times')
     .then(res => {
       if (!res.ok) {
@@ -31,27 +50,39 @@
       const day = String(today.getDate()).padStart(2, '0');
       const month = String(today.getMonth() + 1).padStart(2, '0');
       const year = today.getFullYear();
-      const todayStr = `${year}-${month}-${day}`; // ✅ Fixed: match API format
+      const todayStr = `${year}-${month}-${day}`;
 
       const todayData = data.find(item => item.date === todayStr);
 
       if (todayData) {
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>${todayData.date}</strong><br>
-          Subuh: ${todayData.subuh}<br>
-          Syuruk: ${todayData.syuruk}<br>
-          Zuhur: ${todayData.zuhur}<br>
-          Asar: ${todayData.asar}<br>
-          Maghrib: ${todayData.maghrib}<br>
-          Isyak: ${todayData.isyak}`;
-        ul.appendChild(li);
+        const prayers = [
+          { name: 'Subuh', time: todayData.subuh },
+          { name: 'Syuruk', time: todayData.syuruk },
+          { name: 'Zuhur', time: todayData.zuhur },
+          { name: 'Asar', time: todayData.asar },
+          { name: 'Maghrib', time: todayData.maghrib },
+          { name: 'Isyak', time: todayData.isyak }
+        ];
+
+        prayers.forEach(prayer => {
+          const li = document.createElement('li');
+          li.className = 'prayer-time';
+          li.innerHTML = `
+            <span class="prayer-name">${prayer.name}</span>
+            <span class="prayer-time-value">${prayer.time}</span>
+          `;
+          ul.appendChild(li);
+        });
       } else {
         ul.innerHTML = `<li class="error">No data found for today (${todayStr}).</li>`;
       }
     })
     .catch(err => {
       const ul = document.getElementById('times');
-      ul.innerHTML = `<li class="error">Failed to load prayer times.<br>Error: ${err.message}</li>`;
+      ul.innerHTML = `<li class="error">
+        <strong>Failed to load prayer times</strong>
+        Error: ${err.message}
+      </li>`;
       console.error('Prayer times fetch error:', err);
     });
 </script>
