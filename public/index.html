@@ -25,7 +25,7 @@
   </div>
 
 <script>
-  // Simple lookup for 2025 Islamic dates
+  // Improved Hijri date calculation for 2025
   function getHijriDate2025(date) {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -43,88 +43,152 @@
       'Ramadan', 'Shawwal', 'Dhu al-Qadah', 'Dhu al-Hijjah'
     ];
     
-    // Simple mapping for August 2025
-    if (month === 8) { // August
-      if (day === 3) {
-        return { day: 9, month: 'Safar', year: 1447 };
-      }
-      // Add more specific dates as needed
-      return { day: 9, month: 'Safar', year: 1447 };
-    }
+    // Extended mapping for 2025 (you can add more dates as needed)
+    const hijriDates2025 = {
+      '2025-01-01': { day: 1, month: 'Rajab', year: 1446 },
+      '2025-01-02': { day: 2, month: 'Rajab', year: 1446 },
+      '2025-01-03': { day: 3, month: 'Rajab', year: 1446 },
+      '2025-08-01': { day: 7, month: 'Safar', year: 1447 },
+      '2025-08-02': { day: 8, month: 'Safar', year: 1447 },
+      '2025-08-03': { day: 9, month: 'Safar', year: 1447 },
+      '2025-08-04': { day: 10, month: 'Safar', year: 1447 },
+      '2025-08-05': { day: 11, month: 'Safar', year: 1447 },
+      '2025-08-06': { day: 12, month: 'Safar', year: 1447 },
+      '2025-08-07': { day: 13, month: 'Safar', year: 1447 },
+      '2025-08-08': { day: 14, month: 'Safar', year: 1447 },
+      '2025-08-09': { day: 15, month: 'Safar', year: 1447 },
+      '2025-08-10': { day: 16, month: 'Safar', year: 1447 },
+      '2025-08-11': { day: 17, month: 'Safar', year: 1447 },
+      '2025-08-12': { day: 18, month: 'Safar', year: 1447 },
+      '2025-08-13': { day: 19, month: 'Safar', year: 1447 },
+      '2025-08-14': { day: 20, month: 'Safar', year: 1447 },
+      '2025-08-15': { day: 21, month: 'Safar', year: 1447 },
+      '2025-08-16': { day: 22, month: 'Safar', year: 1447 },
+      '2025-08-17': { day: 23, month: 'Safar', year: 1447 },
+      '2025-08-18': { day: 24, month: 'Safar', year: 1447 },
+      '2025-08-19': { day: 25, month: 'Safar', year: 1447 },
+      '2025-08-20': { day: 26, month: 'Safar', year: 1447 },
+      '2025-08-21': { day: 27, month: 'Safar', year: 1447 },
+      '2025-08-22': { day: 28, month: 'Safar', year: 1447 },
+      '2025-08-23': { day: 29, month: 'Safar', year: 1447 },
+      '2025-08-24': { day: 1, month: 'Rabi al-Awwal', year: 1447 },
+      '2025-08-25': { day: 2, month: 'Rabi al-Awwal', year: 1447 },
+      '2025-08-26': { day: 3, month: 'Rabi al-Awwal', year: 1447 },
+      '2025-08-27': { day: 4, month: 'Rabi al-Awwal', year: 1447 },
+      '2025-08-28': { day: 5, month: 'Rabi al-Awwal', year: 1447 },
+      '2025-08-29': { day: 6, month: 'Rabi al-Awwal', year: 1447 },
+      '2025-08-30': { day: 7, month: 'Rabi al-Awwal', year: 1447 },
+      '2025-08-31': { day: 8, month: 'Rabi al-Awwal', year: 1447 },
+      '2025-12-31': { day: 10, month: 'Jumada al-Awwal', year: 1447 }
+    };
     
-    // Default fallback
-    return { day: 1, month: 'Muharram', year: 1446 };
+    const dateKey = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    return hijriDates2025[dateKey] || { day: 1, month: 'Muharram', year: 1446 };
   }
 
-  // Display today's date in both formats
-  const today = new Date();
-  const hijri = getHijriDate2025(today);
-  
-  // Custom Gregorian date formatting
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
-  
-  const gregorianDate = `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()}`;
-  const islamicDate = `${hijri.day} ${hijri.month} ${hijri.year}H`;
-  
-  document.getElementById('date-display').innerHTML = `
-    <div class="islamic-date">${islamicDate}</div>
-    <div class="gregorian-date">${gregorianDate}</div>
-  `;
+  // Update date display
+  function updateDateDisplay() {
+    const today = new Date();
+    const hijri = getHijriDate2025(today);
+    
+    // Custom Gregorian date formatting
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    
+    const gregorianDate = `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()}`;
+    const islamicDate = `${hijri.day} ${hijri.month} ${hijri.year}H`;
+    
+    document.getElementById('date-display').innerHTML = `
+      <div class="islamic-date">${islamicDate}</div>
+      <div class="gregorian-date">${gregorianDate}</div>
+    `;
+  }
 
   // Load prayer times
-  fetch('/api/prayer-times')
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-      }
-      return res.json();
-    })
-    .then(data => {
-      const ul = document.getElementById('times');
-      ul.innerHTML = '';
+  function loadPrayerTimes() {
+    fetch('/api/prayer-times')
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        }
+        return res.json();
+      })
+      .then(data => {
+        const ul = document.getElementById('times');
+        ul.innerHTML = '';
 
-      const today = new Date();
-      const day = String(today.getDate()).padStart(2, '0');
-      const month = String(today.getMonth() + 1).padStart(2, '0');
-      const year = today.getFullYear();
-      const todayStr = `${year}-${month}-${day}`;
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const year = today.getFullYear();
+        const todayStr = `${year}-${month}-${day}`;
 
-      const todayData = data.find(item => item.date === todayStr);
+        const todayData = data.find(item => item.date === todayStr);
 
-      if (todayData) {
-        const prayers = [
-          { name: 'Subuh', time: todayData.subuh, period: 'am' },
-          { name: 'Syuruk', time: todayData.syuruk, period: 'am' },
-          { name: 'Zuhur', time: todayData.zuhur, period: 'pm' },
-          { name: 'Asar', time: todayData.asar, period: 'pm' },
-          { name: 'Maghrib', time: todayData.maghrib, period: 'pm' },
-          { name: 'Isyak', time: todayData.isyak, period: 'pm' }
-        ];
+        if (todayData) {
+          const prayers = [
+            { name: 'Subuh', time: todayData.subuh, period: 'am' },
+            { name: 'Syuruk', time: todayData.syuruk, period: 'am' },
+            { name: 'Zuhur', time: todayData.zuhur, period: 'pm' },
+            { name: 'Asar', time: todayData.asar, period: 'pm' },
+            { name: 'Maghrib', time: todayData.maghrib, period: 'pm' },
+            { name: 'Isyak', time: todayData.isyak, period: 'pm' }
+          ];
 
-        prayers.forEach(prayer => {
-          const li = document.createElement('li');
-          li.className = 'prayer-time';
-          li.innerHTML = `
-            <span class="prayer-name">${prayer.name}</span>
-            <span class="prayer-time-value">${prayer.time} ${prayer.period}</span>
-          `;
-          ul.appendChild(li);
-        });
-      } else {
-        ul.innerHTML = `<li class="error">No data found for today (${todayStr}).</li>`;
-      }
-    })
-    .catch(err => {
-      const ul = document.getElementById('times');
-      ul.innerHTML = `<li class="error">
-        <strong>Failed to load prayer times</strong>
-        Error: ${err.message}
-      </li>`;
-      console.error('Prayer times fetch error:', err);
-    });
+          prayers.forEach(prayer => {
+            const li = document.createElement('li');
+            li.className = 'prayer-time';
+            li.innerHTML = `
+              <span class="prayer-name">${prayer.name}</span>
+              <span class="prayer-time-value">${prayer.time} ${prayer.period}</span>
+            `;
+            ul.appendChild(li);
+          });
+        } else {
+          ul.innerHTML = `<li class="error">No data found for today (${todayStr}).</li>`;
+        }
+      })
+      .catch(err => {
+        const ul = document.getElementById('times');
+        ul.innerHTML = `<li class="error">
+          <strong>Failed to load prayer times</strong>
+          Error: ${err.message}
+        </li>`;
+        console.error('Prayer times fetch error:', err);
+      });
+  }
+
+  // Initialize the app
+  function initApp() {
+    updateDateDisplay();
+    loadPrayerTimes();
+    
+    // Set up auto-refresh every minute
+    setInterval(() => {
+      updateDateDisplay();
+      loadPrayerTimes();
+    }, 60000); // Refresh every minute
+    
+    // Set up midnight refresh
+    const now = new Date();
+    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+    const timeUntilMidnight = tomorrow - now;
+    
+    setTimeout(() => {
+      updateDateDisplay();
+      loadPrayerTimes();
+      // Set up daily refresh after midnight
+      setInterval(() => {
+        updateDateDisplay();
+        loadPrayerTimes();
+      }, 24 * 60 * 60 * 1000); // 24 hours
+    }, timeUntilMidnight);
+  }
+
+  // Start the app
+  initApp();
 </script>
 
 </body>
