@@ -18,11 +18,6 @@
         Loading today's date...
       </div>
       
-      <div class="refresh-section">
-        <button id="refresh-btn" class="refresh-btn">🔄 Refresh Times</button>
-        <span id="last-updated" class="last-updated"></span>
-      </div>
-      
       <ul id="times" class="prayer-times">
         <li class="loading">Loading prayer times...</li>
       </ul>
@@ -80,71 +75,56 @@
   `;
 
   // Load prayer times
-  function loadPrayerTimes() {
-    const ul = document.getElementById('times');
-    ul.innerHTML = '<li class="loading">Loading prayer times...</li>';
-    
-    fetch('/api/prayer-times')
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-        }
-        return res.json();
-      })
-      .then(data => {
-        ul.innerHTML = '';
+  fetch('/api/prayer-times')
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      }
+      return res.json();
+    })
+    .then(data => {
+      const ul = document.getElementById('times');
+      ul.innerHTML = '';
 
-        const today = new Date();
-        const day = String(today.getDate()).padStart(2, '0');
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const year = today.getFullYear();
-        const todayStr = `${year}-${month}-${day}`;
+      const today = new Date();
+      const day = String(today.getDate()).padStart(2, '0');
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const year = today.getFullYear();
+      const todayStr = `${year}-${month}-${day}`;
 
-        const todayData = data.find(item => item.date === todayStr);
+      const todayData = data.find(item => item.date === todayStr);
 
-        if (todayData) {
-          const prayers = [
-            { name: 'Subuh', time: todayData.subuh },
-            { name: 'Syuruk', time: todayData.syuruk },
-            { name: 'Zuhur', time: todayData.zuhur },
-            { name: 'Asar', time: todayData.asar },
-            { name: 'Maghrib', time: todayData.maghrib },
-            { name: 'Isyak', time: todayData.isyak }
-          ];
+      if (todayData) {
+        const prayers = [
+          { name: 'Subuh', time: todayData.subuh },
+          { name: 'Syuruk', time: todayData.syuruk },
+          { name: 'Zuhur', time: todayData.zuhur },
+          { name: 'Asar', time: todayData.asar },
+          { name: 'Maghrib', time: todayData.maghrib },
+          { name: 'Isyak', time: todayData.isyak }
+        ];
 
-          prayers.forEach(prayer => {
-            const li = document.createElement('li');
-            li.className = 'prayer-time';
-            li.innerHTML = `
-              <span class="prayer-name">${prayer.name}</span>
-              <span class="prayer-time-value">${prayer.time}</span>
-            `;
-            ul.appendChild(li);
-          });
-        } else {
-          ul.innerHTML = `<li class="error">No data found for today (${todayStr}).</li>`;
-        }
-        
-        // Update last updated time
-        const now = new Date();
-        document.getElementById('last-updated').textContent = `Last updated: ${now.toLocaleTimeString()}`;
-      })
-      .catch(err => {
-        ul.innerHTML = `<li class="error">
-          <strong>Failed to load prayer times</strong>
-          Error: ${err.message}
-        </li>`;
-        console.error('Prayer times fetch error:', err);
-      });
-  }
-
-  // Load prayer times on page load
-  loadPrayerTimes();
-
-  // Manual refresh button
-  document.getElementById('refresh-btn').addEventListener('click', () => {
-    loadPrayerTimes();
-  });
+        prayers.forEach(prayer => {
+          const li = document.createElement('li');
+          li.className = 'prayer-time';
+          li.innerHTML = `
+            <span class="prayer-name">${prayer.name}</span>
+            <span class="prayer-time-value">${prayer.time}</span>
+          `;
+          ul.appendChild(li);
+        });
+      } else {
+        ul.innerHTML = `<li class="error">No data found for today (${todayStr}).</li>`;
+      }
+    })
+    .catch(err => {
+      const ul = document.getElementById('times');
+      ul.innerHTML = `<li class="error">
+        <strong>Failed to load prayer times</strong>
+        Error: ${err.message}
+      </li>`;
+      console.error('Prayer times fetch error:', err);
+    });
 </script>
 
 </body>
