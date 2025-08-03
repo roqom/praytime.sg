@@ -13,9 +13,17 @@ require 'fileutils' # Added for FileUtils
 CACHE_FILE = "cache/prayer_times.json"
 DATASET_ID = "d_e81ea2337599b674c4f645c1af93e0dc" # placeholder, update to correct one
 
+# Set timezone to Singapore (UTC+8)
+ENV['TZ'] = 'Asia/Singapore'
+
+def get_singapore_date
+  # Ensure we're using Singapore timezone
+  Time.now.strftime("%Y-%m-%d")
+end
+
 def fetch_data_from_api(date = nil)
-  # Use provided date or default to today
-  target_date = date || Date.today.strftime("%Y-%m-%d")
+  # Use provided date or default to today in Singapore timezone
+  target_date = date || get_singapore_date
   filters = {"Date" => target_date}
   encoded = URI.encode_www_form_component(filters.to_json)
   url = "https://data.gov.sg/api/action/datastore_search?resource_id=#{DATASET_ID}&filters=#{encoded}&limit=9999"
@@ -70,7 +78,7 @@ def fetch_data_from_api(date = nil)
 end
 
 def cached_data
-  today = Date.today.strftime("%Y-%m-%d")
+  today = get_singapore_date
   puts "Checking cache for today: #{today}"
   
   if File.exist?(CACHE_FILE)
@@ -108,7 +116,7 @@ end
 
 get '/health' do
   content_type :json
-  today = Date.today.strftime("%Y-%m-%d")
+  today = get_singapore_date
   
   cache_info = if File.exist?(CACHE_FILE)
     cache_data = JSON.parse(File.read(CACHE_FILE))
@@ -140,6 +148,7 @@ get '/health' do
     status: 'ok',
     timestamp: Time.now.iso8601,
     today: today,
+    timezone: ENV['TZ'],
     **cache_info
   }.to_json
 end
@@ -151,7 +160,7 @@ get '/api/prayer-times' do
     data = cached_data
     records = data.dig("result", "records") || []
 
-    today = Date.today.strftime("%Y-%m-%d")
+    today = get_singapore_date
     today_record = records.find { |r| r["Date"] == today }
 
     if today_record
@@ -171,7 +180,8 @@ get '/api/prayer-times' do
       JSON.pretty_generate({ 
         error: "No data found for today (#{today})",
         available_dates: records.map { |r| r["Date"] },
-        total_records: records.length
+        total_records: records.length,
+        timezone: ENV['TZ']
       })
     end
   rescue => e
