@@ -1,0 +1,65 @@
+{
+  "help": "https://data.gov.sg/api/3/action/help_show?name=datastore_search",
+  "success": true,
+  "result": {
+    "resource_id": "d_e81ea2337599b674c4f645c1af93e0dc",
+    "fields": [
+      {
+        "type": "text",
+        "id": "Date"
+      },
+      {
+        "type": "text",
+        "id": "Day"
+      },
+      {
+        "type": "text",
+        "id": "Subuh"
+      },
+      {
+        "type": "text",
+        "id": "Syuruk"
+      },
+      {
+        "type": "text",
+        "id": "Zohor"
+      },
+      {
+        "type": "text",
+        "id": "Asar"
+      },
+      {
+        "type": "text",
+        "id": "Maghrib"
+      },
+      {
+        "type": "text",
+        "id": "Isyak"
+      },
+      {
+        "type": "int4",
+        "id": "_id"
+      }
+    ],
+    "records": [
+      {
+        "_id": 215,
+        "Date": "2025-08-03",
+        "Day": "Sunday",
+        "Subuh": "5:46",
+        "Syuruk": "7:06",
+        "Zohor": "1:13",
+        "Asar": "4:34",
+        "Maghrib": "7:17",
+        "Isyak": "8:29"
+      }
+    ],
+    "_links": {
+      "start": "/api/action/datastore_search?resource_id=d_e81ea2337599b674c4f645c1af93e0dc&limit=9999&filters=%7B%22Date%22%3A%222025-08-03%22%7D",
+      "next": "/api/action/datastore_search?resource_id=d_e81ea2337599b674c4f645c1af93e0dc&offset=9999&limit=9999&filters=%7B%22Date%22%3A%222025-08-03%22%7D"
+    },
+    "total": 1,
+    "limit": 9999,
+    "filters": "{\"Date\":\"2025-08-03\"}"
+  }
+}
