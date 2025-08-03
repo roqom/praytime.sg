@@ -132,7 +132,7 @@ body {
 }
 
 .prayer-time-value {
-  font-family: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
   color: #4f46e5;
