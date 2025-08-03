@@ -9,9 +9,9 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
-  padding: 1.5rem;
+  padding: 0.75rem;
   color: #2d3748;
-  line-height: 1.6;
+  line-height: 1.4;
 }
 
 .container {
@@ -19,7 +19,7 @@ body {
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border-radius: 24px;
+  border-radius: 20px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -28,7 +28,7 @@ body {
 .header {
   background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
   color: white;
-  padding: 2.5rem 2rem;
+  padding: 1.5rem 1.5rem;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -46,9 +46,9 @@ body {
 }
 
 .header h1 {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   position: relative;
   z-index: 1;
   letter-spacing: -0.025em;
@@ -56,22 +56,22 @@ body {
 
 .header p {
   opacity: 0.9;
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   font-weight: 400;
   position: relative;
   z-index: 1;
 }
 
 .content {
-  padding: 2rem;
+  padding: 1.25rem;
 }
 
 .date-display {
   text-align: center;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  padding: 1rem;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid #e2e8f0;
   position: relative;
   overflow: hidden;
@@ -88,16 +88,16 @@ body {
 }
 
 .islamic-date {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #4f46e5;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   font-family: 'Inter', sans-serif;
   letter-spacing: 0.025em;
 }
 
 .gregorian-date {
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   color: #64748b;
   font-weight: 500;
 }
@@ -106,7 +106,7 @@ body {
   list-style: none;
   padding: 0;
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid #e2e8f0;
   overflow: hidden;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
@@ -116,7 +116,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 1.5rem;
+  padding: 0.75rem 1rem;
   border-bottom: 1px solid #f1f5f9;
 }
 
@@ -127,88 +127,130 @@ body {
 .prayer-name {
   font-weight: 600;
   color: #1e293b;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-family: 'Inter', sans-serif;
 }
 
 .prayer-time-value {
   font-family: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-  font-size: 1.125rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #4f46e5;
   background: #f8fafc;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
+  padding: 0.375rem 0.5rem;
+  border-radius: 4px;
   border: 1px solid #e2e8f0;
 }
 
 .loading {
   text-align: center;
-  padding: 3rem 2rem;
+  padding: 2rem 1.5rem;
   color: #64748b;
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   font-weight: 500;
 }
 
 .error {
   color: #dc2626;
   background: #fef2f2;
-  padding: 1.5rem;
-  border-radius: 12px;
+  padding: 1rem;
+  border-radius: 8px;
   border: 1px solid #fecaca;
-  margin: 1rem 0;
-  font-size: 0.875rem;
+  margin: 0.5rem 0;
+  font-size: 0.75rem;
 }
 
 .error strong {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   font-weight: 600;
 }
 
 /* Responsive Design */
 @media (max-width: 640px) {
   body {
-    padding: 1rem;
+    padding: 0.5rem;
   }
   
   .container {
-    border-radius: 20px;
+    border-radius: 16px;
   }
   
   .header {
-    padding: 2rem 1.5rem;
+    padding: 1.25rem 1rem;
   }
   
   .header h1 {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
+  }
+  
+  .header p {
+    font-size: 0.75rem;
   }
   
   .content {
-    padding: 1.5rem;
+    padding: 1rem;
   }
   
   .date-display {
-    padding: 1.25rem;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
   }
   
   .islamic-date {
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
   
   .gregorian-date {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
   }
   
   .prayer-time {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-    padding: 1rem 1.25rem;
+    padding: 0.625rem 0.875rem;
+  }
+  
+  .prayer-name {
+    font-size: 0.8125rem;
   }
   
   .prayer-time-value {
-    align-self: flex-end;
-    font-size: 1rem;
+    font-size: 0.8125rem;
+    padding: 0.25rem 0.375rem;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 375px) {
+  body {
+    padding: 0.25rem;
+  }
+  
+  .header {
+    padding: 1rem 0.75rem;
+  }
+  
+  .header h1 {
+    font-size: 1.125rem;
+  }
+  
+  .content {
+    padding: 0.75rem;
+  }
+  
+  .date-display {
+    padding: 0.625rem;
+  }
+  
+  .prayer-time {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .prayer-name {
+    font-size: 0.75rem;
+  }
+  
+  .prayer-time-value {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.375rem;
   }
 } 
