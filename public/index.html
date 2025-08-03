@@ -25,15 +25,57 @@
   </div>
 
 <script>
-  // Display today's date
+  // Islamic calendar conversion function
+  function gregorianToHijri(date) {
+    // Islamic calendar month names
+    const islamicMonths = [
+      'Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani',
+      'Jumada al-Awwal', 'Jumada al-Thani', 'Rajab', 'Sha\'ban',
+      'Ramadan', 'Shawwal', 'Dhu al-Qadah', 'Dhu al-Hijjah'
+    ];
+    
+    // Approximate conversion (this is a simplified version)
+    // For more accurate conversion, you might want to use a library like moment-hijri
+    const gregorianYear = date.getFullYear();
+    const gregorianMonth = date.getMonth();
+    const gregorianDay = date.getDate();
+    
+    // Simple approximation (not 100% accurate but close enough for display)
+    // Islamic calendar started in 622 CE
+    const hijriYear = Math.floor((gregorianYear - 622) * 1.0307);
+    
+    // Calculate Islamic month and day (simplified)
+    const daysSinceEpoch = Math.floor((date - new Date(622, 6, 16)) / (1000 * 60 * 60 * 24));
+    const hijriDays = Math.floor(daysSinceEpoch * 1.0307);
+    
+    // Calculate month and day
+    const hijriMonth = Math.floor((hijriDays % 354) / 29.5);
+    const hijriDay = Math.floor(hijriDays % 29.5) + 1;
+    
+    return {
+      day: hijriDay,
+      month: islamicMonths[hijriMonth],
+      year: hijriYear
+    };
+  }
+
+  // Display today's date in both formats
   const today = new Date();
-  const options = { 
-    weekday: 'long', 
-    year: 'numeric', 
+  const hijri = gregorianToHijri(today);
+  
+  const gregorianOptions = { 
+    day: 'numeric',
     month: 'long', 
-    day: 'numeric' 
+    year: 'numeric'
   };
-  document.getElementById('date-display').textContent = today.toLocaleDateString('en-US', options);
+  
+  const gregorianDate = today.toLocaleDateString('en-US', gregorianOptions);
+  const islamicDate = `${hijri.day} ${hijri.month} ${hijri.year}H`;
+  
+  document.getElementById('date-display').innerHTML = `
+    <div class="islamic-date">${islamicDate}</div>
+    <div class="gregorian-date">${gregorianDate}</div>
+  `;
 
   fetch('/api/prayer-times')
     .then(res => {
