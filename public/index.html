@@ -25,7 +25,7 @@
   </div>
 
 <script>
-  // Islamic calendar conversion function
+  // More accurate Islamic calendar conversion function
   function gregorianToHijri(date) {
     // Islamic calendar month names
     const islamicMonths = [
@@ -34,23 +34,42 @@
       'Ramadan', 'Shawwal', 'Dhu al-Qadah', 'Dhu al-Hijjah'
     ];
     
-    // Approximate conversion (this is a simplified version)
-    // For more accurate conversion, you might want to use a library like moment-hijri
-    const gregorianYear = date.getFullYear();
-    const gregorianMonth = date.getMonth();
-    const gregorianDay = date.getDate();
+    // Hijri epoch: July 16, 622 CE (Gregorian)
+    const hijriEpoch = new Date(622, 6, 16); // Month is 0-indexed, so 6 = July
     
-    // Simple approximation (not 100% accurate but close enough for display)
-    // Islamic calendar started in 622 CE
-    const hijriYear = Math.floor((gregorianYear - 622) * 1.0307);
+    // Calculate days since Hijri epoch
+    const daysSinceEpoch = Math.floor((date - hijriEpoch) / (1000 * 60 * 60 * 24));
     
-    // Calculate Islamic month and day (simplified)
-    const daysSinceEpoch = Math.floor((date - new Date(622, 6, 16)) / (1000 * 60 * 60 * 24));
-    const hijriDays = Math.floor(daysSinceEpoch * 1.0307);
+    // Hijri year calculation (more accurate)
+    const hijriYear = Math.floor((daysSinceEpoch + 10646) / 354.367);
+    
+    // Calculate remaining days for month and day
+    const daysInYear = Math.floor((daysSinceEpoch + 10646) % 354.367);
+    
+    // Determine if it's a leap year in Hijri calendar
+    const leapYears = [2, 5, 7, 10, 13, 16, 18, 21, 24, 26, 29];
+    const leapYearCycle = hijriYear % 30;
+    const isLeapYear = leapYears.includes(leapYearCycle);
+    
+    // Hijri month lengths (alternating 29 and 30 days)
+    const monthLengths = [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];
+    if (isLeapYear) {
+      monthLengths[11] = 30; // Dhu al-Hijjah gets 30 days in leap years
+    }
     
     // Calculate month and day
-    const hijriMonth = Math.floor((hijriDays % 354) / 29.5);
-    const hijriDay = Math.floor(hijriDays % 29.5) + 1;
+    let remainingDays = daysInYear;
+    let hijriMonth = 0;
+    let hijriDay = 1;
+    
+    for (let i = 0; i < 12; i++) {
+      if (remainingDays < monthLengths[i]) {
+        hijriDay = remainingDays + 1;
+        break;
+      }
+      remainingDays -= monthLengths[i];
+      hijriMonth = (i + 1) % 12;
+    }
     
     return {
       day: hijriDay,
