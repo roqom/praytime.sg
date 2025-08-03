@@ -8,6 +8,7 @@
     h1 { color: #0070c9; }
     ul { list-style: none; padding: 0; }
     li { margin-bottom: 0.8rem; }
+    .error { color: #d32f2f; background: #ffebee; padding: 1rem; border-radius: 4px; }
   </style>
 </head>
 <body>
@@ -16,7 +17,12 @@
 
 <script>
   fetch('/api/prayer-times')
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      }
+      return res.json();
+    })
     .then(data => {
       const ul = document.getElementById('times');
       ul.innerHTML = '';
@@ -40,12 +46,13 @@
           Isyak: ${todayData.isyak}`;
         ul.appendChild(li);
       } else {
-        ul.innerHTML = `<li>No data found for today (${todayStr}).</li>`;
+        ul.innerHTML = `<li class="error">No data found for today (${todayStr}).</li>`;
       }
     })
     .catch(err => {
-      document.getElementById('times').innerText = 'Failed to load prayer times.';
-      console.error(err);
+      const ul = document.getElementById('times');
+      ul.innerHTML = `<li class="error">Failed to load prayer times.<br>Error: ${err.message}</li>`;
+      console.error('Prayer times fetch error:', err);
     });
 </script>
 

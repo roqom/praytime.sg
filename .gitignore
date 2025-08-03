@@ -1,5 +1,7 @@
 /cache/*
+!/cache/prayer_times.json
 !.gitignore
+
 *.log
 *.swp
 *.DS_Store
