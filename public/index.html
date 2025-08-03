@@ -96,12 +96,12 @@
 
       if (todayData) {
         const prayers = [
-          { name: 'Subuh', time: todayData.subuh },
-          { name: 'Syuruk', time: todayData.syuruk },
-          { name: 'Zuhur', time: todayData.zuhur },
-          { name: 'Asar', time: todayData.asar },
-          { name: 'Maghrib', time: todayData.maghrib },
-          { name: 'Isyak', time: todayData.isyak }
+          { name: 'Subuh', time: todayData.subuh, period: 'am' },
+          { name: 'Syuruk', time: todayData.syuruk, period: 'am' },
+          { name: 'Zuhur', time: todayData.zuhur, period: 'pm' },
+          { name: 'Asar', time: todayData.asar, period: 'pm' },
+          { name: 'Maghrib', time: todayData.maghrib, period: 'pm' },
+          { name: 'Isyak', time: todayData.isyak, period: 'pm' }
         ];
 
         prayers.forEach(prayer => {
@@ -109,7 +109,7 @@
           li.className = 'prayer-time';
           li.innerHTML = `
             <span class="prayer-name">${prayer.name}</span>
-            <span class="prayer-time-value">${prayer.time}</span>
+            <span class="prayer-time-value">${prayer.time} ${prayer.period}</span>
           `;
           ul.appendChild(li);
         });
