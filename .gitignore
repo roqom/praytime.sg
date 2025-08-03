@@ -1,0 +1,5 @@
+/cache/*
+!.gitignore
+*.log
+*.swp
+*.DS_Store
