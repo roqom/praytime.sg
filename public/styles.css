@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   padding: 1.5rem;
@@ -92,7 +92,7 @@ body {
   font-weight: 600;
   color: #4f46e5;
   margin-bottom: 0.5rem;
-  font-family: 'Georgia', serif;
+  font-family: 'Inter', sans-serif;
   letter-spacing: 0.025em;
 }
 
@@ -128,19 +128,11 @@ body {
   font-weight: 600;
   color: #1e293b;
   font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.prayer-name::before {
-  content: '🕌';
-  font-size: 0.875rem;
-  opacity: 0.7;
+  font-family: 'Inter', sans-serif;
 }
 
 .prayer-time-value {
-  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-family: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
   font-size: 1.125rem;
   font-weight: 600;
   color: #4f46e5;

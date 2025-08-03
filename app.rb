@@ -20,13 +20,13 @@ def fetch_data_from_api
   url = "https://data.gov.sg/api/action/datastore_search?resource_id=#{DATASET_ID}&filters=#{encoded}&limit=9999"
 
   begin
-    res = Net::HTTP.get(URI(url))
-    json = JSON.parse(res)
+  res = Net::HTTP.get(URI(url))
+  json = JSON.parse(res)
     
     # Ensure cache directory exists
     FileUtils.mkdir_p(File.dirname(CACHE_FILE))
-    File.write(CACHE_FILE, JSON.pretty_generate(json))
-    json
+  File.write(CACHE_FILE, JSON.pretty_generate(json))
+  json
   rescue => e
     puts "Error fetching data: #{e.message}"
     # Return cached data if available, otherwise raise
@@ -69,27 +69,27 @@ get '/api/prayer-times' do
   content_type :json
   
   begin
-    data = cached_data
-    records = data.dig("result", "records") || []
+  data = cached_data
+  records = data.dig("result", "records") || []
 
-    today = Date.today.strftime("%Y-%m-%d")
-    today_record = records.find { |r| r["Date"] == today }
+  today = Date.today.strftime("%Y-%m-%d")
+  today_record = records.find { |r| r["Date"] == today }
 
-    if today_record
-      formatted = {
-        date: today_record["Date"],
-        subuh: today_record["Subuh"],
-        syuruk: today_record["Syuruk"],
-        zuhur: today_record["Zohor"],
-        asar: today_record["Asar"],
-        maghrib: today_record["Maghrib"],
-        isyak: today_record["Isyak"]
-      }
+  if today_record
+    formatted = {
+      date: today_record["Date"],
+      subuh: today_record["Subuh"],
+      syuruk: today_record["Syuruk"],
+      zuhur: today_record["Zohor"],
+      asar: today_record["Asar"],
+      maghrib: today_record["Maghrib"],
+      isyak: today_record["Isyak"]
+    }
 
-      JSON.pretty_generate([formatted])  # frontend expects array
-    else
-      status 404
-      JSON.pretty_generate({ error: "No data found for today (#{today})" })
+    JSON.pretty_generate([formatted])  # frontend expects array
+  else
+    status 404
+    JSON.pretty_generate({ error: "No data found for today (#{today})" })
     end
   rescue => e
     status 500
