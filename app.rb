@@ -20,9 +20,14 @@ def fetch_data_from_api(date = nil)
   encoded = URI.encode_www_form_component(filters.to_json)
   url = "https://data.gov.sg/api/action/datastore_search?resource_id=#{DATASET_ID}&filters=#{encoded}&limit=9999"
 
+  puts "Fetching data for date: #{target_date}"
+  puts "API URL: #{url}"
+
   begin
     res = Net::HTTP.get(URI(url))
     json = JSON.parse(res)
+    
+    puts "API Response: #{json.inspect}"
     
     # Ensure cache directory exists
     FileUtils.mkdir_p(File.dirname(CACHE_FILE))
@@ -47,11 +52,14 @@ def fetch_data_from_api(date = nil)
     # Update the cache structure
     existing_cache["result"]["records"] = existing_records
     existing_cache["last_updated"] = Time.now.iso8601
+    existing_cache["last_fetched_date"] = target_date
     
     File.write(CACHE_FILE, JSON.pretty_generate(existing_cache))
+    puts "Cache updated with #{new_records.length} new records"
     existing_cache
   rescue => e
     puts "Error fetching data: #{e.message}"
+    puts "Error backtrace: #{e.backtrace.join("\n")}"
     # Return cached data if available, otherwise raise
     if File.exist?(CACHE_FILE)
       JSON.parse(File.read(CACHE_FILE))
@@ -62,24 +70,34 @@ def fetch_data_from_api(date = nil)
 end
 
 def cached_data
+  today = Date.today.strftime("%Y-%m-%d")
+  puts "Checking cache for today: #{today}"
+  
   if File.exist?(CACHE_FILE)
     cache_data = JSON.parse(File.read(CACHE_FILE))
     last_updated = cache_data["last_updated"]
+    last_fetched_date = cache_data["last_fetched_date"]
     
-    # Check if cache is from today and has data for today
-    today = Date.today.strftime("%Y-%m-%d")
+    # Check if cache has data for today
     today_record = cache_data.dig("result", "records")&.find { |r| r["Date"] == today }
+    
+    puts "Last updated: #{last_updated}"
+    puts "Last fetched date: #{last_fetched_date}"
+    puts "Today's record found: #{!today_record.nil?}"
     
     # If cache is stale (not from today) or missing today's data, refresh
     if last_updated.nil? || 
        Date.parse(last_updated) != Date.today || 
+       last_fetched_date != today ||
        today_record.nil?
       puts "Cache is stale or missing today's data, refreshing..."
       fetch_data_from_api
     else
+      puts "Using cached data"
       cache_data
     end
   else
+    puts "No cache file found, fetching fresh data"
     fetch_data_from_api
   end
 end
@@ -90,12 +108,39 @@ end
 
 get '/health' do
   content_type :json
+  today = Date.today.strftime("%Y-%m-%d")
+  
+  cache_info = if File.exist?(CACHE_FILE)
+    cache_data = JSON.parse(File.read(CACHE_FILE))
+    records = cache_data.dig("result", "records") || []
+    today_record = records.find { |r| r["Date"] == today }
+    
+    {
+      cache_exists: true,
+      cache_size: File.size(CACHE_FILE),
+      last_updated: cache_data["last_updated"],
+      last_fetched_date: cache_data["last_fetched_date"],
+      total_records: records.length,
+      today_record_exists: !today_record.nil?,
+      today_record: today_record
+    }
+  else
+    {
+      cache_exists: false,
+      cache_size: 0,
+      last_updated: nil,
+      last_fetched_date: nil,
+      total_records: 0,
+      today_record_exists: false,
+      today_record: nil
+    }
+  end
+  
   {
     status: 'ok',
     timestamp: Time.now.iso8601,
-    cache_exists: File.exist?(CACHE_FILE),
-    cache_size: File.exist?(CACHE_FILE) ? File.size(CACHE_FILE) : 0,
-    today: Date.today.strftime("%Y-%m-%d")
+    today: today,
+    **cache_info
   }.to_json
 end
 
@@ -123,7 +168,11 @@ get '/api/prayer-times' do
       JSON.pretty_generate([formatted])  # frontend expects array
     else
       status 404
-      JSON.pretty_generate({ error: "No data found for today (#{today})" })
+      JSON.pretty_generate({ 
+        error: "No data found for today (#{today})",
+        available_dates: records.map { |r| r["Date"] },
+        total_records: records.length
+      })
     end
   rescue => e
     status 500
