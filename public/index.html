@@ -60,13 +60,13 @@
   const today = new Date();
   const hijri = getHijriDate2025(today);
   
-  const gregorianOptions = { 
-    day: 'numeric',
-    month: 'long', 
-    year: 'numeric'
-  };
+  // Custom Gregorian date formatting
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
   
-  const gregorianDate = today.toLocaleDateString('en-US', gregorianOptions);
+  const gregorianDate = `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()}`;
   const islamicDate = `${hijri.day} ${hijri.month} ${hijri.year}H`;
   
   document.getElementById('date-display').innerHTML = `
