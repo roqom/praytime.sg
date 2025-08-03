@@ -68,6 +68,45 @@ body {
   font-weight: 500;
 }
 
+.refresh-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+}
+
+.refresh-btn {
+  background: linear-gradient(135deg, #0070c9 0%, #0056b3 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.refresh-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.refresh-btn:active {
+  transform: translateY(0);
+}
+
+.last-updated {
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
 .prayer-times {
   list-style: none;
   padding: 0;
@@ -150,6 +189,12 @@ body {
   
   .gregorian-date {
     font-size: 1rem;
+  }
+  
+  .refresh-section {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
   }
   
   .prayer-time {
