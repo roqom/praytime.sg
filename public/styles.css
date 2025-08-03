@@ -177,15 +177,64 @@ body {
   }
   
   .header {
+    padding: 1.125rem 1rem;
+  }
+  
+  .header h1 {
+    font-size: 1.375rem;
+  }
+  
+  .header p {
+    font-size: 0.8125rem;
+  }
+  
+  .content {
+    padding: 0.875rem;
+  }
+  
+  .date-display {
+    padding: 0.75rem;
+    margin-bottom: 0.875rem;
+  }
+  
+  .islamic-date {
+    font-size: 1.0625rem;
+  }
+  
+  .gregorian-date {
+    font-size: 0.8125rem;
+  }
+  
+  .prayer-time {
+    padding: 0.6875rem 0.875rem;
+  }
+  
+  .prayer-name {
+    font-size: 0.875rem;
+  }
+  
+  .prayer-time-value {
+    font-size: 0.875rem;
+    padding: 0.3125rem 0.5rem;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 375px) {
+  body {
+    padding: 0.375rem;
+  }
+  
+  .header {
     padding: 1rem 0.75rem;
   }
   
   .header h1 {
-    font-size: 1.125rem;
+    font-size: 1.25rem;
   }
   
   .header p {
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
   }
   
   .content {
@@ -194,63 +243,18 @@ body {
   
   .date-display {
     padding: 0.625rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  .islamic-date {
-    font-size: 0.9375rem;
-  }
-  
-  .gregorian-date {
-    font-size: 0.6875rem;
   }
   
   .prayer-time {
-    padding: 0.5rem 0.75rem;
+    padding: 0.5625rem 0.75rem;
   }
   
   .prayer-name {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
   }
   
   .prayer-time-value {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.375rem;
-  }
-}
-
-/* Extra small screens */
-@media (max-width: 375px) {
-  body {
-    padding: 0.25rem;
-  }
-  
-  .header {
-    padding: 0.875rem 0.625rem;
-  }
-  
-  .header h1 {
-    font-size: 1rem;
-  }
-  
-  .content {
-    padding: 0.625rem;
-  }
-  
-  .date-display {
-    padding: 0.5rem;
-  }
-  
-  .prayer-time {
-    padding: 0.4375rem 0.625rem;
-  }
-  
-  .prayer-name {
-    font-size: 0.6875rem;
-  }
-  
-  .prayer-time-value {
-    font-size: 0.6875rem;
-    padding: 0.1875rem 0.3125rem;
+    font-size: 0.8125rem;
+    padding: 0.25rem 0.4375rem;
   }
 } 
