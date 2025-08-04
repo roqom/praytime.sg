@@ -10,6 +10,7 @@ A modern, responsive web application that displays daily prayer times for Singap
 - **Auto-refresh**: Updates every minute and at midnight
 - **Caching**: Efficient data caching to reduce API calls
 - **Error Handling**: Graceful error handling with user-friendly messages
+- **Singapore Timezone**: Properly configured for Singapore timezone (UTC+8)
 
 ## Recent Improvements
 
@@ -19,14 +20,17 @@ A modern, responsive web application that displays daily prayer times for Singap
 2. **Midnight Auto-refresh**: Prayer times automatically update when the date changes
 3. **Cache Management**: Improved cache logic to prevent "No data found for today" errors
 4. **Extended Date Coverage**: Added more Hijri date mappings for 2025
+5. **Timezone Fix**: Fixed timezone issue causing wrong date display (now uses Singapore timezone)
+6. **Design Update**: Clean, minimalist white design for better user experience
 
 ### New Features:
 
 - **Auto-refresh**: Updates every minute and at midnight
-- **Last Updated Indicator**: Shows when data was last refreshed
 - **Manual Refresh Endpoint**: `/api/refresh` to force cache refresh
 - **Health Check**: `/health` endpoint for monitoring
 - **Better Error Handling**: More informative error messages
+- **Timezone Support**: Proper Singapore timezone handling
+- **Minimalist Design**: Clean white interface with subtle styling
 
 ## Installation & Usage
 
@@ -62,11 +66,19 @@ web: bundle exec rackup config.ru -p $PORT
 - `GET /` - Main application page
 - `GET /api/prayer-times` - Get prayer times for today
 - `GET /api/refresh` - Force refresh the cache
-- `GET /health` - Health check endpoint
+- `GET /health` - Health check endpoint with detailed cache info
 
 ## Data Source
 
 The app fetches prayer times from the Singapore government's data.gov.sg API. The data is cached locally to reduce API calls and improve performance.
+
+## Timezone Configuration
+
+The app is specifically configured for Singapore timezone (UTC+8) to ensure:
+- Correct date display for Singapore users
+- Proper midnight updates
+- Accurate Hijri date calculations
+- Reliable auto-refresh functionality
 
 ## Hijri Date Calculation
 
@@ -81,13 +93,13 @@ ruby generate_hijri_dates.rb
 ## Architecture
 
 ### Backend (Ruby/Sinatra)
-- **app.rb**: Main application logic
+- **app.rb**: Main application logic with timezone support
 - **config.ru**: Rack configuration
-- **cache/**: Local data caching
+- **cache/**: Local data caching with smart refresh logic
 
 ### Frontend (HTML/CSS/JavaScript)
-- **public/index.html**: Main interface
-- **public/styles.css**: Modern, responsive styling
+- **public/index.html**: Main interface with auto-refresh
+- **public/styles.css**: Minimalist white design
 - Auto-refresh functionality
 - Date display updates
 
@@ -97,16 +109,35 @@ ruby generate_hijri_dates.rb
    - Caches API responses locally
    - Automatically refreshes stale data
    - Merges new data with existing cache
+   - Timezone-aware cache management
 
 2. **Auto-refresh**:
    - Updates every minute
    - Special midnight refresh
    - Updates both dates and prayer times
+   - Singapore timezone aware
 
 3. **Error Handling**:
    - Graceful API failure handling
    - User-friendly error messages
    - Fallback to cached data
+   - Detailed error information
+
+4. **Timezone Support**:
+   - Singapore timezone (UTC+8) configuration
+   - Proper date calculations
+   - Midnight update handling
+   - Timezone debugging information
+
+## Design
+
+The app features a clean, minimalist white design:
+- **Pure white background** with clean typography
+- **Dark gray text** for excellent readability
+- **Subtle gray borders** for definition
+- **Hover effects** for better user interaction
+- **Responsive design** that works on all devices
+- **Modern system fonts** for optimal readability
 
 ## Customization
 
@@ -121,10 +152,11 @@ To add more accurate Hijri date mappings:
 ### Styling
 
 The app uses modern CSS with:
-- Gradient backgrounds
-- Glassmorphism effects
+- Clean white backgrounds
+- Minimalist color scheme
 - Responsive design
-- Dark/light theme support
+- Subtle shadows and borders
+- Hover effects for interactivity
 
 ## Troubleshooting
 
@@ -134,19 +166,40 @@ The app uses modern CSS with:
    - Check if the API is accessible
    - Try the `/api/refresh` endpoint
    - Verify the dataset ID is correct
+   - Check timezone configuration
 
 2. **Hijri date not updating**
    - Ensure the date mapping includes the current date
    - Check browser console for JavaScript errors
+   - Verify timezone settings
 
 3. **Auto-refresh not working**
    - Check browser console for errors
    - Verify JavaScript is enabled
+   - Check timezone configuration
+
+4. **Wrong date displayed**
+   - Verify timezone is set to Singapore (UTC+8)
+   - Check server timezone configuration
+   - Use `/health` endpoint to debug timezone issues
 
 ### Debug Endpoints
 
-- `/health` - Check application status
+- `/health` - Check application status and timezone
 - `/api/refresh` - Force cache refresh
+- `/api/prayer-times` - Get current prayer times
+
+### Timezone Debugging
+
+The `/health` endpoint includes timezone information:
+```json
+{
+  "status": "ok",
+  "today": "2025-08-04",
+  "timezone": "Asia/Singapore",
+  "timestamp": "2025-08-04T07:30:00+08:00"
+}
+```
 
 ## Contributing
 
