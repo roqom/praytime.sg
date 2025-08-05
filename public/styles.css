@@ -140,6 +140,26 @@ body {
   font-weight: 600;
 }
 
+.footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #f0f0f0;
+  text-align: center;
+  background: #fafafa;
+  font-size: 0.75rem;
+  color: #666666;
+}
+
+.footer a {
+  color: #666666;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer a:hover {
+  color: #1a1a1a;
+  text-decoration: underline;
+}
+
 /* Responsive Design */
 @media (max-width: 640px) {
   body {
@@ -191,6 +211,11 @@ body {
     font-size: 0.8125rem;
     padding: 0.3125rem 0.625rem;
   }
+  
+  .footer {
+    padding: 0.875rem 1rem;
+    font-size: 0.6875rem;
+  }
 }
 
 /* Extra small screens */
@@ -230,5 +255,10 @@ body {
   .prayer-time-value {
     font-size: 0.75rem;
     padding: 0.25rem 0.5rem;
+  }
+  
+  .footer {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.625rem;
   }
 } 
