@@ -115,6 +115,10 @@ get '/' do
 end
 
 get '/health' do
+  send_file 'public/health.html'
+end
+
+get '/api/health' do
   content_type :json
   today = get_singapore_date
   

@@ -1,0 +1,30 @@
+{
+  "result": {
+    "records": [
+      {
+        "_id": 217,
+        "Date": "2025-08-05",
+        "Day": "Tuesday",
+        "Subuh": "5:46",
+        "Syuruk": "7:06",
+        "Zohor": "1:12",
+        "Asar": "4:33",
+        "Maghrib": "7:16",
+        "Isyak": "8:29"
+      },
+      {
+        "_id": 218,
+        "Date": "2025-08-06",
+        "Day": "Wednesday",
+        "Subuh": "5:46",
+        "Syuruk": "7:06",
+        "Zohor": "1:12",
+        "Asar": "4:33",
+        "Maghrib": "7:16",
+        "Isyak": "8:28"
+      }
+    ]
+  },
+  "last_updated": "2025-08-06T00:18:44+08:00",
+  "last_fetched_date": "2025-08-06"
+}

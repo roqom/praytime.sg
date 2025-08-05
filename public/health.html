@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Health - Prayer Times Singapore</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .health-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .health-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .health-header h1 {
+      font-size: 2rem;
+      color: #1a1a1a;
+      margin-bottom: 0.5rem;
+    }
+    
+    .health-header p {
+      color: #666666;
+      font-size: 1rem;
+    }
+    
+    .status-card {
+      background: #ffffff;
+      border: 1px solid #f0f0f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+    
+    .status-ok {
+      background: #dcfce7;
+      color: #166534;
+    }
+    
+    .status-error {
+      background: #fef2f2;
+      color: #dc2626;
+    }
+    
+    .status-warning {
+      background: #fef3c7;
+      color: #d97706;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .info-item {
+      background: #fafafa;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid #f0f0f0;
+    }
+    
+    .info-label {
+      font-size: 0.75rem;
+      color: #666666;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+    
+    .info-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    
+    .prayer-times-card {
+      background: #ffffff;
+      border: 1px solid #f0f0f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .prayer-times-card h3 {
+      margin-bottom: 1rem;
+      color: #1a1a1a;
+      font-size: 1.125rem;
+    }
+    
+    .prayer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.75rem;
+    }
+    
+    .prayer-item {
+      background: #f8f8f8;
+      padding: 0.75rem;
+      border-radius: 6px;
+      text-align: center;
+      border: 1px solid #f0f0f0;
+    }
+    
+    .prayer-name {
+      font-size: 0.75rem;
+      color: #666666;
+      margin-bottom: 0.25rem;
+    }
+    
+    .prayer-time {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    
+    .actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.875rem;
+      transition: all 0.2s ease;
+      border: 1px solid;
+    }
+    
+    .btn-primary {
+      background: #1a1a1a;
+      color: #ffffff;
+      border-color: #1a1a1a;
+    }
+    
+    .btn-primary:hover {
+      background: #333333;
+    }
+    
+    .btn-secondary {
+      background: #ffffff;
+      color: #1a1a1a;
+      border-color: #e5e5e5;
+    }
+    
+    .btn-secondary:hover {
+      background: #fafafa;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: #666666;
+    }
+    
+    .error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 640px) {
+      .health-container {
+        padding: 1rem;
+      }
+      
+      .health-header h1 {
+        font-size: 1.5rem;
+      }
+      
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .prayer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .actions {
+        flex-direction: column;
+      }
+      
+      .btn {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="health-container">
+      <div class="health-header">
+        <h1>Site Health</h1>
+        <p>Prayer Times Singapore - System Status</p>
+      </div>
+      
+      <div id="health-content">
+        <div class="loading">Loading health information...</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function formatDate(dateString) {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    return date.toLocaleString('en-SG', {
+      timeZone: 'Asia/Singapore',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+  
+  function formatFileSize(bytes) {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+  }
+  
+  function getStatusIndicator(status, message) {
+    const statusClass = status === 'ok' ? 'status-ok' : 'status-error';
+    const statusText = status === 'ok' ? '✓ Healthy' : '✗ Error';
+    return `<div class="status-indicator ${statusClass}">${statusText}</div>`;
+  }
+  
+  function renderPrayerTimes(prayerRecord) {
+    if (!prayerRecord) {
+      return '<div class="error">No prayer times available for today</div>';
+    }
+    
+    const prayers = [
+      { name: 'Subuh', time: prayerRecord.Subuh },
+      { name: 'Syuruk', time: prayerRecord.Syuruk },
+      { name: 'Zohor', time: prayerRecord.Zohor },
+      { name: 'Asar', time: prayerRecord.Asar },
+      { name: 'Maghrib', time: prayerRecord.Maghrib },
+      { name: 'Isyak', time: prayerRecord.Isyak }
+    ];
+    
+    const prayerHtml = prayers.map(prayer => `
+      <div class="prayer-item">
+        <div class="prayer-name">${prayer.name}</div>
+        <div class="prayer-time">${prayer.time}</div>
+      </div>
+    `).join('');
+    
+    return `
+      <div class="prayer-times-card">
+        <h3>Today's Prayer Times (${prayerRecord.Date})</h3>
+        <div class="prayer-grid">
+          ${prayerHtml}
+        </div>
+      </div>
+    `;
+  }
+  
+  function loadHealthData() {
+    fetch('/api/health')
+      .then(response => response.json())
+      .then(data => {
+        const content = document.getElementById('health-content');
+        
+        const statusHtml = getStatusIndicator(data.status, data.status);
+        
+        const infoHtml = `
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Last Updated</div>
+              <div class="info-value">${formatDate(data.last_updated)}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Cache Size</div>
+              <div class="info-value">${formatFileSize(data.cache_size)}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Total Records</div>
+              <div class="info-value">${data.total_records}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Timezone</div>
+              <div class="info-value">${data.timezone}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Cache Status</div>
+              <div class="info-value">${data.cache_exists ? '✓ Active' : '✗ Inactive'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Today's Data</div>
+              <div class="info-value">${data.today_record_exists ? '✓ Available' : '✗ Missing'}</div>
+            </div>
+          </div>
+        `;
+        
+        const prayerTimesHtml = renderPrayerTimes(data.today_record);
+        
+        const actionsHtml = `
+          <div class="actions">
+            <a href="/" class="btn btn-primary">Back to Prayer Times</a>
+            <a href="/api/refresh" class="btn btn-secondary">Refresh Cache</a>
+            <a href="https://tinylytics.app/public/BXTp9qxuuwQ3bisB6ohq" target="_blank" class="btn btn-secondary">View Analytics</a>
+          </div>
+        `;
+        
+        content.innerHTML = `
+          <div class="status-card">
+            ${statusHtml}
+            <h2>System Status</h2>
+            ${infoHtml}
+          </div>
+          ${prayerTimesHtml}
+          ${actionsHtml}
+        `;
+      })
+      .catch(error => {
+        const content = document.getElementById('health-content');
+        content.innerHTML = `
+          <div class="error">
+            <strong>Failed to load health data</strong><br>
+            Error: ${error.message}
+          </div>
+          <div class="actions">
+            <a href="/" class="btn btn-primary">Back to Prayer Times</a>
+          </div>
+        `;
+      });
+  }
+  
+  // Load health data when page loads
+  loadHealthData();
+  
+  // Auto-refresh every 30 seconds
+  setInterval(loadHealthData, 30000);
+</script>
+
+</body>
+</html> 
