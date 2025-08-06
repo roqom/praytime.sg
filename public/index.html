@@ -28,6 +28,9 @@
       <a href="/health">🍎 site health</a> | <a href="https://tinylytics.app/public/BXTp9qxuuwQ3bisB6ohq" target="_blank">📊 site analytics</a>
       <div class="copyright">
         © 2025 PrayerTimesSG
+        <div class="data-attribution">
+          Contains information from <a href="https://data.gov.sg/datasets?agencies=Majlis+Ugama+Islam+Singapura+(MUIS)&resultId=d_e81ea2337599b674c4f645c1af93e0dc&page=1" target="_blank">Muslim Prayer Timetable 2025</a> accessed from <a href="https://data.gov.sg" target="_blank">data.gov.sg</a> which is made available under the terms of the <a href="https://data.gov.sg/open-data-licence" target="_blank">Singapore Open Data Licence version 1.0</a>
+        </div>
       </div>
     </div>
   </div>
@@ -154,6 +157,16 @@
             `;
             ul.appendChild(li);
           });
+          
+          // Add prayer timetable link
+          const timetableLi = document.createElement('li');
+          timetableLi.className = 'prayer-timetable-link';
+          timetableLi.innerHTML = `
+            <a href="https://isomer-user-content.by.gov.sg/48/fd9dda10-fd78-42bb-8226-a6524f850d7a/Prayer%20Timetable%202025.pdf" target="_blank" style="color: #1547BE; text-decoration: none; font-size: 0.875rem; font-weight: 500;">
+              MUIS Prayer Timetable 2025 [PDF] ↗
+            </a>
+          `;
+          ul.appendChild(timetableLi);
         } else {
           ul.innerHTML = `<li class="error">No data found for today (${todayStr}).</li>`;
         }

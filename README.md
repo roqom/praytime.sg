@@ -1,16 +1,33 @@
-# Singapore Prayer Times App
+# PrayerTimesSG
 
 A modern, responsive web application that displays daily prayer times for Singapore with both Gregorian and Hijri dates.
 
+**Live Site**: [prayertimes.sg](https://prayertimes.sg)  
+**Health Dashboard**: [prayertimes.sg/health](https://prayertimes.sg/health)  
+**Analytics**: [Tinylytics Dashboard](https://tinylytics.app/public/BXTp9qxuuwQ3bisB6ohq)
+
+**© 2025 PrayerTimesSG. All rights reserved.**
+
+## ⚠️ Important Notice
+
+This project is open source for educational and community purposes. While the code is available under the MIT License, please respect the following:
+
+- **Brand Identity**: "PrayerTimesSG" and associated branding are protected
+- **Attribution**: Any use of this code must include proper attribution
+- **Commercial Use**: Contact the author for commercial licensing
+- **Domain**: prayertimes.sg is a registered domain and trademark
+
 ## Features
 
-- **Real-time Updates**: Automatically refreshes prayer times and dates
-- **Dual Calendar Display**: Shows both Gregorian and Hijri dates
-- **Responsive Design**: Works on desktop, tablet, and mobile devices
-- **Auto-refresh**: Updates every minute and at midnight
-- **Caching**: Efficient data caching to reduce API calls
-- **Error Handling**: Graceful error handling with user-friendly messages
-- **Singapore Timezone**: Properly configured for Singapore timezone (UTC+8)
+- **🕐 Real-time Updates**: Automatically refreshes prayer times and dates
+- **📅 Dual Calendar Display**: Shows both Gregorian and Hijri dates
+- **📱 Responsive Design**: Works on desktop, tablet, and mobile devices
+- **🔄 Auto-refresh**: Updates every minute and at midnight
+- **💾 Smart Caching**: Efficient data caching to reduce API calls
+- **🛡️ Error Handling**: Graceful error handling with user-friendly messages
+- **🇸🇬 Singapore Timezone**: Properly configured for Singapore timezone (UTC+8)
+- **📊 Health Monitoring**: Built-in health dashboard for system status
+- **📈 Analytics**: Integrated analytics for usage tracking
 
 ## Recent Improvements
 
@@ -32,26 +49,33 @@ A modern, responsive web application that displays daily prayer times for Singap
 - **Timezone Support**: Proper Singapore timezone handling
 - **Minimalist Design**: Clean white interface with subtle styling
 
-## Installation & Usage
+## 🚀 Quick Start
 
 ### Prerequisites
 
 - Ruby 2.7 or higher
 - Bundler
 
-### Setup
+### Local Development
 
-1. Install dependencies:
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/roqom/prayertimes.sg.git
+   cd prayertimes.sg
+   ```
+
+2. **Install dependencies:**
    ```bash
    bundle install
    ```
 
-2. Start the application:
+3. **Start the application:**
    ```bash
    bundle exec rackup
    ```
 
-3. Open your browser and navigate to `http://localhost:9292`
+4. **Open your browser:**
+   Navigate to `http://localhost:9292`
 
 ### Deployment
 
@@ -61,12 +85,20 @@ The app is configured for deployment on platforms like Heroku with the `Procfile
 web: bundle exec rackup config.ru -p $PORT
 ```
 
-## API Endpoints
+### Environment Variables
 
-- `GET /` - Main application page
-- `GET /api/prayer-times` - Get prayer times for today
-- `GET /api/refresh` - Force refresh the cache
-- `GET /health` - Health check endpoint with detailed cache info
+- `TZ=Asia/Singapore` - Set timezone (automatically configured)
+- `PORT=9292` - Set port (default: 9292)
+
+## 🔗 API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | Main application page |
+| `/api/prayer-times` | GET | Get prayer times for today |
+| `/api/refresh` | GET | Force refresh the cache (admin only) |
+| `/health` | GET | Health check endpoint with detailed cache info |
+| `/api/health` | GET | JSON health data (used by health page) |
 
 ## Data Source
 
@@ -201,14 +233,36 @@ The `/health` endpoint includes timezone information:
 }
 ```
 
-## Contributing
+## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+We welcome contributions! Here's how you can help:
 
-## License
+### How to Contribute
 
-This project is open source and available under the MIT License. 
+1. **Fork the repository**
+2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
+3. **Make your changes**
+4. **Test thoroughly**
+5. **Submit a pull request**
+
+### What We're Looking For
+
+- **Bug fixes** - Help improve reliability
+
+### Code of Conduct
+
+- Be respectful and inclusive
+- Help others learn and grow
+- Focus on the community benefit
+- Follow existing code style
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **data.gov.sg** - For providing the prayer times API
+- **Majlis Ugama Islam Singapura (MUIS)** - For the prayer timetable
+- **Berlime.com** - For inspiration and tools
+- **Singapore Muslim Community** - For the motivation to build this app 

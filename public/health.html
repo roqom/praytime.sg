@@ -182,6 +182,28 @@
       margin-bottom: 1rem;
     }
     
+    .data-attribution {
+      margin-top: 1rem;
+      font-size: 0.625rem;
+      color: #888888;
+      line-height: 1.3;
+      text-align: center;
+      padding: 1rem;
+      background: #fafafa;
+      border-radius: 8px;
+      border: 1px solid #f0f0f0;
+    }
+    
+    .data-attribution a {
+      color: #666666;
+      text-decoration: none;
+    }
+    
+    .data-attribution a:hover {
+      color: #1a1a1a;
+      text-decoration: underline;
+    }
+    
     @media (max-width: 640px) {
       .health-container {
         padding: 1rem;
@@ -205,6 +227,12 @@
       
       .btn {
         text-align: center;
+      }
+      
+      .data-attribution {
+        margin-top: 0.75rem;
+        font-size: 0.5625rem;
+        padding: 0.75rem;
       }
     }
   </style>
@@ -326,7 +354,12 @@
             <a href="/" class="btn btn-primary">Back to Prayer Times</a>
             <a href="https://tinylytics.app/public/BXTp9qxuuwQ3bisB6ohq" target="_blank" class="btn btn-secondary">View Analytics</a>
           </div>
+          <div class="data-attribution">
+            Contains information from <a href="https://data.gov.sg/datasets?agencies=Majlis+Ugama+Islam+Singapura+(MUIS)&resultId=d_e81ea2337599b674c4f645c1af93e0dc&page=1" target="_blank">Muslim Prayer Timetable 2025</a> accessed from <a href="https://data.gov.sg" target="_blank">data.gov.sg</a> which is made available under the terms of the <a href="https://data.gov.sg/open-data-licence" target="_blank">Singapore Open Data Licence version 1.0</a>
+          </div>
         `;
+        
+
         
         content.innerHTML = `
           <div class="status-card">
