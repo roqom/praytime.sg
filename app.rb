@@ -172,7 +172,7 @@ get '/api/prayer-times' do
         date: today_record["Date"],
         subuh: today_record["Subuh"],
         syuruk: today_record["Syuruk"],
-        zuhur: today_record["Zohor"],
+        zohor: today_record["Zohor"],
         asar: today_record["Asar"],
         maghrib: today_record["Maghrib"],
         isyak: today_record["Isyak"]
