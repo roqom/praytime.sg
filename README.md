@@ -17,6 +17,16 @@ This project is open source for educational and community purposes. While the co
 - **Commercial Use**: Contact the author for commercial licensing
 - **Domain**: prayertimes.sg is a registered domain and trademark
 
+## 🐛 Known Issues
+
+### Hijri Date Mapping Incomplete
+- **Issue**: The Islamic date display is incomplete and shows incorrect dates for most of 2025 and all future years
+- **Current Coverage**: Only January 1-3, August 1-31, and December 31, 2025
+- **Fallback**: All other dates show "1 Muharram 1446H" (incorrect)
+- **Impact**: Users may see wrong Islamic dates, affecting app reliability
+- **Status**: Planned fix - implementing proper Hijri calculation algorithm
+- **GitHub Issue**: [#1](https://github.com/roqom/prayertimes.sg/issues/1)
+
 ## Features
 
 - **🕐 Real-time Updates**: Automatically refreshes prayer times and dates

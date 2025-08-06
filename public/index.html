@@ -54,7 +54,12 @@
       'Ramadan', 'Shawwal', 'Dhu al-Qadah', 'Dhu al-Hijjah'
     ];
     
-    // Extended mapping for 2025 (you can add more dates as needed)
+    // TODO: Incomplete Hijri date mapping - see GitHub issue #1
+    // Only covers specific dates in 2025, shows fallback for others
+    // Current coverage: Jan 1-3, Aug 1-31, Dec 31, 2025
+    // All other dates show "1 Muharram 1446H" (incorrect)
+    // Planned fix: Implement proper Hijri calculation algorithm
+    // For Quick fix: Extended mapping for 2025 (you can add more dates as needed)
     const hijriDates2025 = {
       '2025-01-01': { day: 1, month: 'Rajab', year: 1446 },
       '2025-01-02': { day: 2, month: 'Rajab', year: 1446 },
