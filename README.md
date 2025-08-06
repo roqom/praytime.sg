@@ -25,7 +25,7 @@ This project is open source for educational and community purposes. While the co
 - **Fallback**: All other dates show "1 Muharram 1446H" (incorrect)
 - **Impact**: Users may see wrong Islamic dates, affecting app reliability
 - **Status**: Planned fix - implementing proper Hijri calculation algorithm
-- **GitHub Issue**: [#1](https://github.com/roqom/prayertimes.sg/issues/1)
+- **GitHub Issue**: [#1](https://github.com/roqom/prayertimes.sg/issues/2)
 
 ## Features
 
